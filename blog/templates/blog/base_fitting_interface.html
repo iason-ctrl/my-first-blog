@@ -1,103 +1,253 @@
-
-<!-- Der neue HTML Doctype ist der einfachste Doctype den es je gab.-->
 <!DOCTYPE html>
-<html lang="de">
-<head>
-    <!-- Auch das meta-Tag zum Zeichensatz wurde vereinfacht.-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+{%load static%}
+<html>
+	<head>
 
-    <style>
-        * {
-            color: #999999;
+		<!-- CSS style to put div side by side -->
+		<style type="text/css">
+
+         * {
+            color: #000000;
             font-size: 20px;
             font-weight: 400;
             box-sizing: border-box;
             font-family: 'Monteserat', Arial, sans-serif;
         }
 
-        header,
-        nav,
-        section,
-        aside,
-        footer {
-            text-align: center;
-            border-radius: 7px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,.08);
-        }
 
-        header {
-            width: 25%;
-            margin: 25px 25px 25px 25px;
-            display: inline-block;
-        }
+		.container {
+			width:100%;
+			height:190px;
+			background-color:;
+			padding-top:20px;
+			padding-left:15px;
+			padding-right:15px;
+		}
+		#st-box {
+			float:left;
+			width:20%;
+			height:300px;
+			background-color:white;
+			/%border:solid black;%/
+		}
+		#nd-box {
+			float:left;
+			width:25%;
+			height:300px;
+			background-color:white;
+			border:solid black;
+			margin-left:20px;
 
-        nav {
-            width: calc(75% - 75px);
-            margin: 25px 25px 25px 0px;
-            float: right;
-        }
+		}
+		#rd-box {
+			float:right;
+			width:50%;
+			height:600px;
+			background-color:white;
+			%/border:solid black;/%
+			margin-left:20px;
 
-        aside {
-            width: 25%;
-            float: left;
-            min-height: 517px;
-        }
+		}
+		h1 {
+		    font-size: 40px;
+		    display: inline-block;
+            width: 600px;
+            height: 70px;
+            padding: 10px 0px 0px 20px;
+            /* border: 1px solid blue; */
+            background-color: #F7CD53;
+			color:#FFFFFF; /* das eine sfs blau #2A5282*/
+			border-radius: 14px;
+			box-shadow: 0 5px 15px #000000;
+		}
 
-        section {
-            float: left;
-            width: calc(75% - 75px);
-            margin: 0 25px 25px 25px;
-        }
-
-        section header,
-        section article,
-        section footer {
-            width: 100%;
-            border-radius: 7px;
-            border: 1px solid #e5e5e5;
-            box-shadow: none;
-            margin: 25px 0px 0px 0px;
+		footer {
+		    text-align: center;
+            border-radius: 14px;
             padding: 50px;
-        }
-
-        footer {
+            box-shadow: 0 5px 15px #000000;
             width: 96.5%;
             margin: 25px 25px 0px 25px;
             clear: both;
+            margin-top:600px;
+            margin-bottom: 50px;
         }
-    </style>
-</head>
-<body>
-<main>
-  <header>
-    Solar For Schools Education <!-- Logo/Website-Name am besten als eine h1 nutzen-->
-  </header>
+
+        #custom-button {
+            padding:12px;
+            color:white;
+            background-color: #1F3B5D;
+            border: 0px solid #000;
+            border-radius: 14px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px #000000;
+        }
+
+        #custom-button:hover{
+            background-color: #2A5282
+        }
+
+        #custom-text{
+            margin-left:10px;
+        }
+
+        .btn {
+          background-color: DodgerBlue;
+          border: none;
+          color: white;
+          padding: 12px 30px;
+          cursor: pointer;
+          font-size: 20px;
+        }
+
+        /* Darker background on mouse-over */
+        .btn:hover {
+          background-color: RoyalBlue;
+        }
+
+		</style>
+        <title> Solar for Schools Fitting Interface</title>
+
+        <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/latest/MathJax.js">
+            MathJax.Hub.Config({
+             extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+             jax: ["input/TeX", "output/HTML-CSS"],
+             tex2jax: {
+                 inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                 displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+             },
+             "HTML-CSS": { availableFonts: ["TeX"] }
+            });
+        </script>-->
+
+        <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+        <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+
+	</head>
+
+	<body>
+
+		<h1>Photovoltaik Fitting Interface</h1>
+
+        <div style="font-size:25px;"> Fitten der Leistungsdaten aus der schuleigenen PV-Anlage mit verschiedenen Funktionstypen. Anleitung:
+            <ol>
+                <li>Suchen Sie in unserem Schulkatalog ihre Schule aus. Gruppieren Sie die Zeit auf 5 Minuten, da dadurch der Fit genauer wird. Wählen Sie beispielsweise die Leistungsmesswerte ihrer schuleigenen PV-Anlage vom gestrigen Tag aus. Fitten Sie nun die Verbrauchs- und Erzeugungswerte (Angabe in kW notwendig).</li>
+                <li>Laden Sie die entsprechende Excel Tabelle hoch. Neben dem Upload finden Sie mehrere Funktionstypen die für den Fit zur Auswahl stehen.</li>
+                <li>Zu jedem Graphen können Sie die Kurve u.o. die Funktionsparameter des Verbrauchs unsichtbar schalten. Bei jeder Erzeugung des Graphen werden die genauen, ungerundeten Fitparameter als Text-File heruntergeladen.</li>
+                <li>Laden sie alle Materialien runter.</li>
+            </ol>
+        </div>
 
 
-  <nav>
-    Fitten von Leistungsdaten aus einer Photovoltaikanlage mit verschiedenen Funktionstypen. <!-- Menü am besten als eine ul einfügen -->
-  </nav>
 
-  <section>
-    <form action="/action_page.php">
-      <input type="file" id="myFile" name="filename">
-      <input type="submit">
-    </form> <!-- Ein Abschnitt der Website -->
-    <header>section header</header> <!-- Du Überschrift des Website-Abschnitts -->
-    <article>section article</article> <!-- Der Inhalt des Website-Abschnitts -->
-    <footer>section footer</footer> <!-- Der Schlussteil des Website-Abschnitts -->
-  </section>
 
-  <aside>
-    Die Leistungsdaten  <!-- Eine Seitenleiste -->
-  </aside>
+        <center>
+		<div class="container">
+			<div id="st-box">
+                <input type="file" id="real-file" hidden="hidden"/>
+                <button type="button" id="custom-button"> Upload der Leistungstabelle</button>
+                <span id="custom-text"></span>
 
-  <footer>
-    footer <!-- Der Fußbereich -->
-  </footer>
-</main>
-</body>
+                <script type="text/javascript">
+
+                    const realFileBtn = document.getElementById("real-file");
+                    const customBtn = document.getElementById("custom-button");
+                    const customTxt = document.getElementById("custom-text");
+
+                    customBtn.addEventListener("click",function(){
+                        realFileBtn.click();
+
+                    });
+
+
+
+                    realFileBtn.addEventListener("change", function() {
+                      if (realFileBtn.value) {
+                        customTxt.innerHTML = realFileBtn.value.match(
+                          /[\/\\]([\w\d\s\.\-\(\)]+)$/
+                        )[1];
+                      } else {
+                        customTxt.innerHTML = "No file chosen, yet.";
+                      }
+                    });
+
+                </script>
+
+			</div>
+
+			<div id="nd-box">
+
+                Funktionsarten:
+                <ul style="text-align:left;">
+                    <li>TAGESGRAPHEN f(x)=Acos(bx+c)+d</li>
+                    <li>TAGESGRPAHEN Polynom --- . Grades</li>
+                    <li>WOCHENGRAPHEN kontinuierlich trigonometrische Funktion</li>
+                    <li>WOCHENGRAPHEN Diskreter Satz von Cosinus Funktionen</li>
+                </ul>
+
+			</div>
+
+			<div id="rd-box">
+
+                <py-env>
+                    -numpy
+                </py-env>
+
+                <py-sript>
+                    import numpy as np
+                </py-sript>
+
+
+
+                <div id="fig_el204861406210369866247679965872"></div>
+            <script>
+                function mpld3_load_lib(url, callback){
+                  var s = document.createElement('script');
+                  s.src = url;
+                  s.async = true;
+                  s.onreadystatechange = s.onload = callback;
+                  s.onerror = function(){console.warn("failed to load library " + url);};
+                  document.getElementsByTagName("head")[0].appendChild(s);
+                }
+
+                if(typeof(mpld3) !== "undefined" && mpld3._mpld3IsLoaded){
+                   // already loaded: just create the figure
+                   !function(mpld3){
+
+                       mpld3.draw_figure("fig_el204861406210369866247679965872", {"width": 640.0, "height": 480.0, "axes": [{"bbox": [0.125, 0.10999999999999999, 0.775, 0.77], "xlim": [-0.15000000000000002, 3.15], "ylim": [0.85, 4.15], "xdomain": [-0.15000000000000002, 3.15], "ydomain": [0.85, 4.15], "xscale": "linear", "yscale": "linear", "axes": [{"position": "bottom", "nticks": 9, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}, {"position": "left", "nticks": 9, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}], "axesbg": "#FFFFFF", "axesbgalpha": null, "zoomable": true, "id": "el20486140621127829200", "lines": [{"data": "data01", "xindex": 0, "yindex": 1, "coordinates": "data", "id": "el20486140621128208000", "color": "#1F77B4", "linewidth": 1.5, "dasharray": "none", "alpha": 1, "zorder": 2, "drawstyle": "default"}], "paths": [], "markers": [], "texts": [], "collections": [], "images": [], "sharex": [], "sharey": []}], "data": {"data01": [[0.0, 1.0], [1.0, 2.0], [2.0, 3.0], [3.0, 4.0]]}, "id": "el20486140621036986624", "plugins": [{"type": "reset"}, {"type": "zoom", "button": true, "enabled": false}, {"type": "boxzoom", "button": true, "enabled": false}]});
+                   }(mpld3);
+                }else if(typeof define === "function" && define.amd){
+                   // require.js is available: use it to load d3/mpld3
+                   require.config({paths: {d3: "https://d3js.org/d3.v5"}});
+                   require(["d3"], function(d3){
+                      window.d3 = d3;
+                      mpld3_load_lib("https://mpld3.github.io/js/mpld3.v0.5.8.js", function(){
+
+                         mpld3.draw_figure("fig_el204861406210369866247679965872", {"width": 640.0, "height": 480.0, "axes": [{"bbox": [0.125, 0.10999999999999999, 0.775, 0.77], "xlim": [-0.15000000000000002, 3.15], "ylim": [0.85, 4.15], "xdomain": [-0.15000000000000002, 3.15], "ydomain": [0.85, 4.15], "xscale": "linear", "yscale": "linear", "axes": [{"position": "bottom", "nticks": 9, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}, {"position": "left", "nticks": 9, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}], "axesbg": "#FFFFFF", "axesbgalpha": null, "zoomable": true, "id": "el20486140621127829200", "lines": [{"data": "data01", "xindex": 0, "yindex": 1, "coordinates": "data", "id": "el20486140621128208000", "color": "#1F77B4", "linewidth": 1.5, "dasharray": "none", "alpha": 1, "zorder": 2, "drawstyle": "default"}], "paths": [], "markers": [], "texts": [], "collections": [], "images": [], "sharex": [], "sharey": []}], "data": {"data01": [[0.0, 1.0], [1.0, 2.0], [2.0, 3.0], [3.0, 4.0]]}, "id": "el20486140621036986624", "plugins": [{"type": "reset"}, {"type": "zoom", "button": true, "enabled": false}, {"type": "boxzoom", "button": true, "enabled": false}]});
+                      });
+                    });
+                }else{
+                    // require.js not available: dynamically load d3 & mpld3
+                    mpld3_load_lib("https://d3js.org/d3.v5.js", function(){
+                         mpld3_load_lib("https://mpld3.github.io/js/mpld3.v0.5.8.js", function(){
+
+                                 mpld3.draw_figure("fig_el204861406210369866247679965872", {"width": 640.0, "height": 480.0, "axes": [{"bbox": [0.125, 0.10999999999999999, 0.775, 0.77], "xlim": [-0.15000000000000002, 3.15], "ylim": [0.85, 4.15], "xdomain": [-0.15000000000000002, 3.15], "ydomain": [0.85, 4.15], "xscale": "linear", "yscale": "linear", "axes": [{"position": "bottom", "nticks": 9, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}, {"position": "left", "nticks": 9, "tickvalues": null, "tickformat_formatter": "", "tickformat": null, "scale": "linear", "fontsize": 10.0, "grid": {"gridOn": false}, "visible": true}], "axesbg": "#FFFFFF", "axesbgalpha": null, "zoomable": true, "id": "el20486140621127829200", "lines": [{"data": "data01", "xindex": 0, "yindex": 1, "coordinates": "data", "id": "el20486140621128208000", "color": "#1F77B4", "linewidth": 1.5, "dasharray": "none", "alpha": 1, "zorder": 2, "drawstyle": "default"}], "paths": [], "markers": [], "texts": [], "collections": [], "images": [], "sharex": [], "sharey": []}], "data": {"data01": [[0.0, 1.0], [1.0, 2.0], [2.0, 3.0], [3.0, 4.0]]}, "id": "el20486140621036986624", "plugins": [{"type": "reset"}, {"type": "zoom", "button": true, "enabled": false}, {"type": "boxzoom", "button": true, "enabled": false}]});
+                            })
+                         });
+                }
+            </script>
+            </div>
+		</div>
+		</center>
+
+
+        <footer>
+            <p>solarforschools@education.com, www.solarforschools.uk.org</p>
+            <p>iasonsaga@gmail.com, https://www.linkedin.com/in/iason-saganas-88483520b</p>
+            <p>Unser Ziel ist es...</p>
+
+        </footer>
+
+	</body>
 </html>
+

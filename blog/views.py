@@ -44,3 +44,5 @@ def post_edit(request, pk):
 def fitting_interface(request):
     return render(request,"blog/base_fitting_interface.html")
 
+def upload_data(request):
+    return render(request,"")
